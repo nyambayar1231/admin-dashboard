@@ -57,7 +57,7 @@ export function Products() {
     status: 'active',
   });
 
-  // Filter products based on search
+  // Бүтээгдэхүүнийг хайлтаар шүүх
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(globalFilter.toLowerCase()) ||
     product.sku.toLowerCase().includes(globalFilter.toLowerCase()) ||
@@ -148,12 +148,12 @@ export function Products() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
+      {/* Толгой */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Products</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Бүтээгдэхүүн</h1>
           <p className="text-muted-foreground">
-            Manage your products inventory ({filteredProducts.length} items)
+            Бүтээгдэхүүний нөөцөө удирдах ({filteredProducts.length} бараа)
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -162,33 +162,33 @@ export function Products() {
             value={viewMode}
             onValueChange={(value: string) => value && setViewMode(value as ViewMode)}
           >
-            <ToggleGroupItem value="grid" aria-label="Grid view">
+            <ToggleGroupItem value="grid" aria-label="Grid харах">
               <LayoutGrid className="h-4 w-4" />
             </ToggleGroupItem>
-            <ToggleGroupItem value="table" aria-label="Table view">
+            <ToggleGroupItem value="table" aria-label="Хүснэгт харах">
               <List className="h-4 w-4" />
             </ToggleGroupItem>
           </ToggleGroup>
           <Button onClick={openCreateModal}>
             <Plus className="mr-2 h-4 w-4" />
-            Add Product
+            Бүтээгдэхүүн нэмэх
           </Button>
         </div>
       </div>
 
-      {/* Search */}
+      {/* Хайлт */}
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <Input
           type="text"
-          placeholder="Search products by name, SKU, or category..."
+          placeholder="Бүтээгдэхүүнийг нэр, SKU, эсвэл ангилалаар хайх..."
           value={globalFilter}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGlobalFilter(e.target.value)}
           className="pl-9"
         />
       </div>
 
-      {/* Products Display */}
+      {/* Бүтээгдэхүүн харуулах */}
       {viewMode === 'grid' ? (
         <ProductGrid
           products={filteredProducts}
@@ -204,27 +204,27 @@ export function Products() {
         />
       )}
 
-      {/* Create/Edit Modal */}
+      {/* Үүсгэх/Засах Модал */}
       <Dialog open={isCreateModalOpen} onOpenChange={setIsCreateModalOpen}>
         <DialogContent className="sm:max-w-[600px]">
           <form onSubmit={handleSubmit}>
             <DialogHeader>
-              <DialogTitle>{editingProduct ? 'Edit Product' : 'Add Product'}</DialogTitle>
+              <DialogTitle>{editingProduct ? 'Бүтээгдэхүүн засах' : 'Бүтээгдэхүүн нэмэх'}</DialogTitle>
               <DialogDescription>
                 {editingProduct
-                  ? 'Make changes to your product here.'
-                  : 'Add a new product to your inventory.'}
+                  ? 'Бүтээгдэхүүний өөрчлөлтүүдээ энд оруулна уу.'
+                  : 'Нөөцөд шинэ бүтээгдэхүүн нэмэх.'}
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="name">Product Name</Label>
+                  <Label htmlFor="name">Бүтээгдэхүүний нэр</Label>
                   <Input
                     id="name"
                     value={formData.name}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="Enter product name"
+                    placeholder="Бүтээгдэхүүний нэр оруулах"
                     required
                   />
                 </div>
@@ -234,14 +234,14 @@ export function Products() {
                     id="sku"
                     value={formData.sku}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, sku: e.target.value })}
-                    placeholder="Enter SKU"
+                    placeholder="SKU оруулах"
                     required
                   />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="price">Price ($)</Label>
+                  <Label htmlFor="price">Үнэ ($)</Label>
                   <Input
                     id="price"
                     type="number"
@@ -254,7 +254,7 @@ export function Products() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="stock">Stock</Label>
+                  <Label htmlFor="stock">Нөөц</Label>
                   <Input
                     id="stock"
                     type="number"
@@ -268,13 +268,13 @@ export function Products() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="category">Category</Label>
+                  <Label htmlFor="category">Ангилал</Label>
                   <Select
                     value={formData.categoryId}
                     onValueChange={(value: string) => setFormData({ ...formData, categoryId: value })}
                   >
                     <SelectTrigger id="category">
-                      <SelectValue placeholder="Select category" />
+                      <SelectValue placeholder="Ангилал сонгох" />
                     </SelectTrigger>
                     <SelectContent>
                       {categories.map((cat) => (
@@ -286,7 +286,7 @@ export function Products() {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="status">Status</Label>
+                  <Label htmlFor="status">Төлөв</Label>
                   <Select
                     value={formData.status}
                     onValueChange={(value: 'active' | 'inactive' | 'draft') =>
@@ -294,56 +294,56 @@ export function Products() {
                     }
                   >
                     <SelectTrigger id="status">
-                      <SelectValue placeholder="Select status" />
+                      <SelectValue placeholder="Төлөв сонгох" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="active">Active</SelectItem>
-                      <SelectItem value="inactive">Inactive</SelectItem>
-                      <SelectItem value="draft">Draft</SelectItem>
+                      <SelectItem value="active">Идэвхитэй</SelectItem>
+                      <SelectItem value="inactive">Идэвхигүй</SelectItem>
+                      <SelectItem value="draft">Ноорог</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
+                <Label htmlFor="description">Тайлбар</Label>
                 <Input
                   id="description"
                   value={formData.description}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, description: e.target.value })}
-                  placeholder="Enter product description"
+                  placeholder="Бүтээгдэхүүний тайлбар оруулах"
                 />
               </div>
             </div>
             <DialogFooter>
               <Button type="button" variant="outline" onClick={closeModal}>
-                Cancel
+                Цуцлах
               </Button>
               <Button type="submit">
-                {editingProduct ? 'Update Product' : 'Create Product'}
+                {editingProduct ? 'Бүтээгдэхүүн шинэчлэх' : 'Бүтээгдэхүүн үүсгэх'}
               </Button>
             </DialogFooter>
           </form>
         </DialogContent>
       </Dialog>
 
-      {/* Delete Confirmation */}
+      {/* Устгах баталгаа */}
       <Dialog open={!!deletingProduct} onOpenChange={() => setDeletingProduct(null)}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <AlertCircle className="h-5 w-5 text-destructive" />
-              Delete Product
+              Бүтээгдэхүүн устгах
             </DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete "{deletingProduct?.name}"? This action cannot be undone.
+              Та &quot;{deletingProduct?.name}&quot;-г устгахдаа итгэлтэй байна уу? Энэ үйлдлийг буцаах боломжгүй.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button variant="outline" onClick={() => setDeletingProduct(null)}>
-              Cancel
+              Цуцлах
             </Button>
             <Button variant="destructive" onClick={handleDelete}>
-              Delete
+              Устгах
             </Button>
           </DialogFooter>
         </DialogContent>

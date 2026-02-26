@@ -7,9 +7,9 @@ interface LayoutProps {
 }
 
 const navigation = [
-  { name: 'Dashboard', href: '#/', icon: LayoutDashboard },
-  { name: 'Products', href: '#/products', icon: Package },
-  { name: 'Categories', href: '#/categories', icon: FolderTree },
+  { name: 'Хяналтын самбар', href: '#/dashboard', icon: LayoutDashboard },
+  { name: 'Бүтээгдэхүүн', href: '#/products', icon: Package },
+  { name: 'Ангилал', href: '#/categories', icon: FolderTree },
 ];
 
 export function Layout({ children }: LayoutProps) {
@@ -40,7 +40,7 @@ export function Layout({ children }: LayoutProps) {
           <div className="fixed inset-0 bg-gray-900/50" onClick={() => setSidebarOpen(false)} />
           <div className="fixed inset-y-0 left-0 w-64 bg-white shadow-xl">
             <div className="flex items-center justify-between p-4 border-b">
-              <span className="text-xl font-bold text-indigo-600">Admin Dashboard</span>
+<span className="text-xl font-bold text-indigo-600">Админ Самбар</span>
               <button onClick={() => setSidebarOpen(false)} className="p-2 hover:bg-gray-100 rounded-lg">
                 <X className="w-5 h-5" />
               </button>
@@ -110,7 +110,7 @@ export function Layout({ children }: LayoutProps) {
             <Menu className="w-6 h-6" />
           </button>
           <div className="flex items-center gap-4">
-            <span className="text-sm text-gray-600">Welcome, Admin</span>
+            <span className="text-sm text-gray-600">Сайн байна уу, Админ</span>
             <div className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
               A
             </div>

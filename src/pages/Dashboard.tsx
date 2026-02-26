@@ -18,10 +18,10 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 
 const stats = [
-  { name: 'Total Products', icon: Package, color: 'bg-blue-500' },
-  { name: 'Categories', icon: FolderTree, color: 'bg-green-500' },
-  { name: 'Total Revenue', icon: DollarSign, color: 'bg-purple-500' },
-  { name: 'Low Stock Items', icon: AlertTriangle, color: 'bg-red-500' },
+  { name: 'Нийт бүтээгдэхүүн', icon: Package, color: 'bg-blue-500' },
+  { name: 'Ангилал', icon: FolderTree, color: 'bg-green-500' },
+  { name: 'Нийт орлого', icon: DollarSign, color: 'bg-purple-500' },
+  { name: 'Бага нөөцтэй', icon: AlertTriangle, color: 'bg-red-500' },
 ];
 
 export function Dashboard() {
@@ -41,11 +41,11 @@ export function Dashboard() {
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Нүүр</h1>
         <p className="text-muted-foreground">
-          Overview of your store's performance
+          Дэлгүүрийн гүйцэтгэлийн ерөнхий мэдээлэл
         </p>
       </div>
 
-      {/* Stats Grid */}
+      {/* Тоо харуулах сүлжээ */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat, index) => {
           const Icon = stat.icon;
@@ -70,7 +70,7 @@ export function Dashboard() {
                 <p className="text-xs text-muted-foreground flex items-center mt-1">
                   <TrendingUp className="h-3 w-3 text-green-500 mr-1" />
                   <span className="text-green-600 font-medium">+12%</span>
-                  <span className="ml-1">from last month</span>
+                  <span className="ml-1">өнгөрсөн сараас</span>
                 </p>
               </CardContent>
             </Card>
@@ -78,12 +78,12 @@ export function Dashboard() {
         })}
       </div>
 
-      {/* Recent Activity & Quick Actions */}
+      {/* Сүүлийн үйл ажиллагаа ба хурдан үйлдэл */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card className="lg:col-span-4">
           <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
-            <CardDescription>Latest updates from your store</CardDescription>
+            <CardTitle>Сүүлийн үйл ажиллагаа</CardTitle>
+            <CardDescription>Дэлгүүрийн сүүлийн шинэчлэлтүүд</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -91,10 +91,10 @@ export function Dashboard() {
                 <div className="w-2 h-2 bg-green-500 rounded-full shrink-0" />
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium truncate">
-                    New product added
+                    Шинэ бүтээгдэхүүн нэмэгдлээ
                   </p>
                   <p className="text-xs text-muted-foreground">
-                    iPhone 15 Pro - 2 hours ago
+                    iPhone 15 Pro - 2 цагийн өмнө
                   </p>
                 </div>
               </div>
@@ -102,10 +102,10 @@ export function Dashboard() {
                 <div className="w-2 h-2 bg-blue-500 rounded-full shrink-0" />
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium truncate">
-                    Category updated
+                    Ангилал шинэчлэгдлээ
                   </p>
                   <p className="text-xs text-muted-foreground">
-                    Electronics - 5 hours ago
+                    Электроник - 5 цагийн өмнө
                   </p>
                 </div>
               </div>
@@ -113,10 +113,10 @@ export function Dashboard() {
                 <div className="w-2 h-2 bg-yellow-500 rounded-full shrink-0" />
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium truncate">
-                    Low stock alert
+                    Бага нөөцийн анхааруулга
                   </p>
                   <p className="text-xs text-muted-foreground">
-                    Running Shoes - 3 items left
+                    Гүйцэтгэх гутал - 3 ширхэг үлдлээ
                   </p>
                 </div>
               </div>
@@ -126,8 +126,8 @@ export function Dashboard() {
 
         <Card className="lg:col-span-3">
           <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
-            <CardDescription>Common tasks you might need</CardDescription>
+            <CardTitle>Хурдан үйлдэл</CardTitle>
+            <CardDescription>Хэрэгтэй байж магадгүй ерөнхий даалгаврууд</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 gap-4">
@@ -137,7 +137,7 @@ export function Dashboard() {
                   className="w-full h-auto py-6 flex flex-col items-center gap-2"
                 >
                   <Plus className="h-6 w-6" />
-                  <span className="text-sm">Add Product</span>
+                  <span className="text-sm">Бүтээгдэхүүн нэмэх</span>
                 </Button>
               </a>
               <a href="#/categories">
@@ -146,7 +146,7 @@ export function Dashboard() {
                   className="w-full h-auto py-6 flex flex-col items-center gap-2"
                 >
                   <FolderTree className="h-6 w-6" />
-                  <span className="text-sm">Add Category</span>
+                  <span className="text-sm">Ангилал нэмэх</span>
                 </Button>
               </a>
             </div>

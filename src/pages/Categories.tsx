@@ -53,7 +53,7 @@ export function Categories() {
 
   const columns = [
     columnHelper.accessor('name', {
-      header: 'Category Name',
+      header: 'Ангиллын нэр',
       cell: (info) => (
         <div className="flex items-center gap-3">
           <div className="p-2 bg-primary/10 rounded-lg">
@@ -67,19 +67,19 @@ export function Categories() {
       ),
     }),
     columnHelper.accessor('description', {
-      header: 'Description',
+      header: 'Тайлбар',
       cell: (info) => <p className="text-muted-foreground max-w-xs truncate">{info.getValue()}</p>,
     }),
     columnHelper.accessor('productCount', {
-      header: 'Products',
+      header: 'Бүтээгдэхүүн',
       cell: (info) => (
         <Badge variant="secondary">
-          {info.getValue()} products
+          {info.getValue()} бүтээгдэхүүн
         </Badge>
       ),
     }),
     columnHelper.accessor('updatedAt', {
-      header: 'Last Updated',
+      header: 'Сүүлд шинэчлэгдсэн',
       cell: (info) => (
         <span className="text-sm text-muted-foreground">
           {new Date(info.getValue()).toLocaleDateString()}
@@ -98,7 +98,7 @@ export function Categories() {
             className="h-8 w-8"
           >
             <Pencil className="h-4 w-4" />
-            <span className="sr-only">Edit</span>
+            <span className="sr-only">Засах</span>
           </Button>
           <Button
             variant="ghost"
@@ -107,7 +107,7 @@ export function Categories() {
             className="h-8 w-8 text-destructive hover:text-destructive"
           >
             <Trash2 className="h-4 w-4" />
-            <span className="sr-only">Delete</span>
+            <span className="sr-only">Устгах</span>
           </Button>
         </div>
       ),
@@ -193,31 +193,31 @@ export function Categories() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
+      {/* Толгой */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Categories</h1>
-          <p className="text-muted-foreground">Organize your products into categories</p>
+          <h1 className="text-3xl font-bold tracking-tight">Ангилал</h1>
+          <p className="text-muted-foreground">Бүтээгдэхүүнүүдээ ангилалд оруулах</p>
         </div>
         <Button onClick={openCreateModal}>
           <Plus className="mr-2 h-4 w-4" />
-          Add Category
+          Ангилал нэмэх
         </Button>
       </div>
 
-      {/* Search */}
+      {/* Хайлт */}
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <Input
           type="text"
-          placeholder="Search categories..."
+          placeholder="Ангилал хайх..."
           value={globalFilter}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGlobalFilter(e.target.value)}
           className="pl-9"
         />
       </div>
 
-      {/* Table */}
+      {/* Хүснэгт */}
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -250,7 +250,7 @@ export function Categories() {
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
+                  Үр дүн олдсонгүй.
                 </TableCell>
               </TableRow>
             )}
@@ -258,21 +258,21 @@ export function Categories() {
         </Table>
       </div>
 
-      {/* Create/Edit Modal */}
+      {/* Үүсгэх/Засах Модал */}
       <Dialog open={isCreateModalOpen} onOpenChange={setIsCreateModalOpen}>
         <DialogContent className="sm:max-w-[500px]">
           <form onSubmit={handleSubmit}>
             <DialogHeader>
-              <DialogTitle>{editingCategory ? 'Edit Category' : 'Add Category'}</DialogTitle>
+              <DialogTitle>{editingCategory ? 'Ангилал засах' : 'Ангилал нэмэх'}</DialogTitle>
               <DialogDescription>
                 {editingCategory
-                  ? 'Make changes to your category here.'
-                  : 'Add a new category to organize your products.'}
+                  ? 'Ангиллынхаа өөрчлөлтүүдийг энд оруулна уу.'
+                  : 'Бүтээгдэхүүнүүдээ зохион байгуулах шинэ ангилал нэмэх.'}
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Category Name</Label>
+                <Label htmlFor="name">Ангиллын нэр</Label>
                 <Input
                   id="name"
                   value={formData.name}
@@ -284,7 +284,7 @@ export function Categories() {
                       slug: editingCategory ? formData.slug : generateSlug(name)
                     });
                   }}
-                  placeholder="Enter category name"
+                  placeholder="Ангиллын нэр оруулах"
                   required
                 />
               </div>
@@ -294,51 +294,51 @@ export function Categories() {
                   id="slug"
                   value={formData.slug}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, slug: e.target.value })}
-                  placeholder="enter-slug-here"
+                  placeholder="slug-энд-оруулах"
                   required
                 />
-                <p className="text-xs text-muted-foreground">Used in URLs: /category/{formData.slug}</p>
+                <p className="text-xs text-muted-foreground">URL-д ашиглагдана: /category/{formData.slug}</p>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
+                <Label htmlFor="description">Тайлбар</Label>
                 <Input
                   id="description"
                   value={formData.description}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, description: e.target.value })}
-                  placeholder="Enter category description"
+                  placeholder="Ангиллын тайлбар оруулах"
                 />
               </div>
             </div>
             <DialogFooter>
               <Button type="button" variant="outline" onClick={closeModal}>
-                Cancel
+                Цуцлах
               </Button>
               <Button type="submit">
-                {editingCategory ? 'Update Category' : 'Create Category'}
+                {editingCategory ? 'Ангилал шинэчлэх' : 'Ангилал үүсгэх'}
               </Button>
             </DialogFooter>
           </form>
         </DialogContent>
       </Dialog>
 
-      {/* Delete Confirmation */}
+      {/* Устгах баталгаа */}
       <Dialog open={!!deletingCategory} onOpenChange={() => setDeletingCategory(null)}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <AlertCircle className="h-5 w-5 text-destructive" />
-              Delete Category
+              Ангилал устгах
             </DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete "{deletingCategory?.name}"? This will also affect {deletingCategory?.productCount} products in this category.
+              Та &quot;{deletingCategory?.name}&quot;-г устгахдаа итгэлтэй байна уу? Энэ ангилал дахь {deletingCategory?.productCount} бүтээгдэхүүн бас өөрчлөгдөнө.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button variant="outline" onClick={() => setDeletingCategory(null)}>
-              Cancel
+              Цуцлах
             </Button>
             <Button variant="destructive" onClick={handleDelete}>
-              Delete
+              Устгах
             </Button>
           </DialogFooter>
         </DialogContent>
