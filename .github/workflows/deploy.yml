@@ -28,7 +28,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          script: echo 'SSH connection works!'
+          script: echo 'SSH connection works test 123!'
 
       - name: Deploy to EC2
         uses: appleboy/scp-action@v0.1.7
