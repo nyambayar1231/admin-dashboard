@@ -1,6 +1,19 @@
-import { Package, FolderTree, DollarSign, AlertTriangle, TrendingUp, Plus } from 'lucide-react';
+import {
+  Package,
+  FolderTree,
+  DollarSign,
+  AlertTriangle,
+  TrendingUp,
+  Plus,
+} from 'lucide-react';
 import { useDashboardStats } from '@/hooks/useApi';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 
@@ -14,18 +27,22 @@ const stats = [
 export function Dashboard() {
   const { data: dashboardStats, isLoading } = useDashboardStats();
 
-  const statValues = dashboardStats ? [
-    dashboardStats.totalProducts,
-    dashboardStats.totalCategories,
-    `$${dashboardStats.totalRevenue.toLocaleString()}`,
-    dashboardStats.lowStockItems,
-  ] : [0, 0, '$0', 0];
+  const statValues = dashboardStats
+    ? [
+        dashboardStats.totalProducts,
+        dashboardStats.totalCategories,
+        `$${dashboardStats.totalRevenue.toLocaleString()}`,
+        dashboardStats.lowStockItems,
+      ]
+    : [0, 0, '$0', 0];
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-muted-foreground">Overview of your store's performance</p>
+        <h1 className="text-3xl font-bold tracking-tight">Нүүр</h1>
+        <p className="text-muted-foreground">
+          Overview of your store's performance
+        </p>
       </div>
 
       {/* Stats Grid */}
@@ -73,22 +90,34 @@ export function Dashboard() {
               <div className="flex items-center gap-4">
                 <div className="w-2 h-2 bg-green-500 rounded-full shrink-0" />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">New product added</p>
-                  <p className="text-xs text-muted-foreground">iPhone 15 Pro - 2 hours ago</p>
+                  <p className="text-sm font-medium truncate">
+                    New product added
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    iPhone 15 Pro - 2 hours ago
+                  </p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
                 <div className="w-2 h-2 bg-blue-500 rounded-full shrink-0" />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">Category updated</p>
-                  <p className="text-xs text-muted-foreground">Electronics - 5 hours ago</p>
+                  <p className="text-sm font-medium truncate">
+                    Category updated
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    Electronics - 5 hours ago
+                  </p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
                 <div className="w-2 h-2 bg-yellow-500 rounded-full shrink-0" />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">Low stock alert</p>
-                  <p className="text-xs text-muted-foreground">Running Shoes - 3 items left</p>
+                  <p className="text-sm font-medium truncate">
+                    Low stock alert
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    Running Shoes - 3 items left
+                  </p>
                 </div>
               </div>
             </div>
@@ -103,13 +132,19 @@ export function Dashboard() {
           <CardContent>
             <div className="grid grid-cols-2 gap-4">
               <a href="#/products">
-                <Button variant="outline" className="w-full h-auto py-6 flex flex-col items-center gap-2">
+                <Button
+                  variant="outline"
+                  className="w-full h-auto py-6 flex flex-col items-center gap-2"
+                >
                   <Plus className="h-6 w-6" />
                   <span className="text-sm">Add Product</span>
                 </Button>
               </a>
               <a href="#/categories">
-                <Button variant="outline" className="w-full h-auto py-6 flex flex-col items-center gap-2">
+                <Button
+                  variant="outline"
+                  className="w-full h-auto py-6 flex flex-col items-center gap-2"
+                >
                   <FolderTree className="h-6 w-6" />
                   <span className="text-sm">Add Category</span>
                 </Button>
