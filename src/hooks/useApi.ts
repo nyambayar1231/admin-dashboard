@@ -1,6 +1,17 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { mockApi } from '@/lib/api';
+import { healthService } from '@/services/health.service';
 import type { Category, Product } from '@/types';
+
+// Health Check
+export const useHealthCheck = () => {
+  return useQuery({
+    queryKey: ['health'],
+    queryFn: () => healthService.check(),
+    retry: 1,
+    refetchInterval: 30000, // Refetch every 30 seconds
+  });
+};
 
 // Dashboard
 export const useDashboardStats = () => {

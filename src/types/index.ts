@@ -1,4 +1,4 @@
-export interface Category {
+export type Category = {
   id: string;
   name: string;
   description: string;
@@ -6,9 +6,9 @@ export interface Category {
   productCount: number;
   createdAt: string;
   updatedAt: string;
-}
+};
 
-export interface Product {
+export type Product = {
   id: string;
   name: string;
   description: string;
@@ -21,11 +21,11 @@ export interface Product {
   imageUrl?: string;
   createdAt: string;
   updatedAt: string;
-}
+};
 
-export interface DashboardStats {
+export type DashboardStats = {
   totalProducts: number;
   totalCategories: number;
   totalRevenue: number;
   lowStockItems: number;
-}
+};

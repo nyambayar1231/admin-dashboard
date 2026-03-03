@@ -3,17 +3,18 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { LayoutDashboard, Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react';
+import { useLogin } from '@/hooks/useAuth';
 
-interface LoginFormData {
+type LoginFormData = {
   username: string;
   password: string;
-}
+};
 
-interface FormErrors {
+type FormErrors = {
   username?: string;
   password?: string;
   general?: string;
-}
+};
 
 export function Login() {
   const [formData, setFormData] = useState<LoginFormData>({
@@ -22,18 +23,19 @@ export function Login() {
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  
+  const loginMutation = useLogin();
+  const isLoading = loginMutation.isPending;
 
-  // Хэрэглэгчийн нэр шалгах: зөвхөн англи үсэг, тоо, -, _
+  // Username validation: letters, numbers, underscores, 3-30 chars
   const validateUsername = (username: string): boolean => {
-    const usernameRegex = /^[a-zA-Z0-9_-]+$/;
+    const usernameRegex = /^[a-zA-Z0-9_]{3,30}$/;
     return usernameRegex.test(username);
   };
 
-  // Нууц үг шалгах: зөвхөн англи үсэг, 8-аас олон тэмдэгт
+  // Password validation: minimum 8 characters
   const validatePassword = (password: string): boolean => {
-    const passwordRegex = /^[a-zA-Z]+$/;
-    return passwordRegex.test(password) && password.length > 8;
+    return password.length >= 8;
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,13 +72,16 @@ export function Login() {
       return;
     }
 
-    setIsLoading(true);
-
-    // Хуурамч нэвтрэх (1 секунд хүлээнэ)
-    setTimeout(() => {
-      setIsLoading(false);
-      window.location.hash = '/dashboard';
-    }, 1000);
+    try {
+      await loginMutation.mutateAsync({
+        username: formData.username,
+        password: formData.password,
+      });
+    } catch (error: any) {
+      setErrors({
+        general: error.response?.data?.message || 'Нэвтрэхэд алдаа гарлаа',
+      });
+    }
   };
 
   const getUsernameValidationStatus = () => {
@@ -137,7 +142,7 @@ export function Login() {
                 </div>
               )}
               <p className="text-xs text-gray-500">
-                Зөвхөн англи үсэг, тоо, -, _ ашиглана уу
+                3-30 тэмдэгт, зөвхөн англи үсэг, тоо, доогуур зураас (_) ашиглана уу
               </p>
             </div>
 
@@ -182,9 +187,17 @@ export function Login() {
                 </div>
               )}
               <p className="text-xs text-gray-500">
-                Зөвхөн англи үсэг ашиглаж, 8-аас олон тэмдэгт байх ёстой
+                Хамгийн багадаа 8 тэмдэгт байх ёстой
               </p>
             </div>
+
+            {/* Ерөнхий алдаа */}
+            {errors.general && (
+              <div className="flex items-center gap-2 text-sm text-red-600 bg-red-50 p-3 rounded-lg">
+                <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                <span>{errors.general}</span>
+              </div>
+            )}
 
             {/* Нэвтрэх товч */}
             <Button

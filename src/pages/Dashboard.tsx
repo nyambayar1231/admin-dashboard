@@ -6,7 +6,7 @@ import {
   TrendingUp,
   Plus,
 } from 'lucide-react';
-import { useDashboardStats } from '@/hooks/useApi';
+import { useDashboardStats, useHealthCheck } from '@/hooks/useApi';
 import {
   Card,
   CardContent,
@@ -26,6 +26,7 @@ const stats = [
 
 export function Dashboard() {
   const { data: dashboardStats, isLoading } = useDashboardStats();
+  const { data: health, isLoading: isHealthLoading } = useHealthCheck();
 
   const statValues = dashboardStats
     ? [
@@ -77,6 +78,40 @@ export function Dashboard() {
           );
         })}
       </div>
+
+      {/* Backend холболтын төлөв */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Серверийн төлөв</CardTitle>
+          <CardDescription>Backend API холболтын мэдээлэл</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {isHealthLoading ? (
+            <Skeleton className="h-6 w-32" />
+          ) : health ? (
+            <div className="flex items-center gap-2">
+              <div
+                className={`w-3 h-3 rounded-full ${
+                  health.status === 'healthy' ? 'bg-green-500' : 'bg-red-500'
+                }`}
+              />
+              <span className="font-medium">
+                {health.status === 'healthy' ? 'Холбогдсон' : 'Холбогдоход асуудалтай'}
+              </span>
+              {health.timestamp && (
+                <span className="text-sm text-muted-foreground">
+                  (Шалгасан: {new Date(health.timestamp).toLocaleTimeString()})
+                </span>
+              )}
+            </div>
+          ) : (
+            <div className="flex items-center gap-2 text-red-500">
+              <div className="w-3 h-3 rounded-full bg-red-500" />
+              <span>Холбогдож чадсангүй</span>
+            </div>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Сүүлийн үйл ажиллагаа ба хурдан үйлдэл */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
