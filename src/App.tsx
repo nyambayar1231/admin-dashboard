@@ -1,73 +1,39 @@
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { RouterProvider, createRouter } from '@tanstack/react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { LandingPage } from '@/pages/Landing';
-import { Login } from '@/pages/Login';
-import { Dashboard } from '@/pages/Dashboard';
-import { Products } from '@/pages/Products';
-import { Categories } from '@/pages/Categories';
-import { Layout } from '@/layouts/Layout';
-import { useState } from 'react';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { routeTree } from './routeTree.gen';
+import type { MeResponse } from './services/auth.service';
 
-// Create a client
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutes
+      staleTime: 1000 * 60 * 5,
       retry: 1,
     },
   },
 });
 
-// Simple router using hash-based routing
-function Router() {
-  const [currentPath, setCurrentPath] = useState(window.location.hash.slice(1) || '/');
+export type RouterContext = {
+  queryClient: QueryClient;
+  user: MeResponse['user'] | null;
+};
 
-  window.addEventListener('hashchange', () => {
-    setCurrentPath(window.location.hash.slice(1) || '/');
-  });
+const router = createRouter({
+  routeTree,
+  context: { queryClient, user: null } as RouterContext,
+  defaultPreload: 'intent',
+});
 
-  const navigate = (path: string) => {
-    window.location.hash = path;
-  };
-
-  // Make navigate available globally for Layout
-  (window as any).navigate = navigate;
-
-  const renderPage = () => {
-    // Landing page is shown on root path, outside of Layout
-    if (currentPath === '/') {
-      return <LandingPage />;
-    }
-
-    // Login page is shown without Layout
-    if (currentPath === '/login') {
-      return <Login />;
-    }
-
-    // Dashboard pages are shown inside Layout
-    const pageContent = (() => {
-      switch (currentPath) {
-        case '/dashboard':
-          return <Dashboard />;
-        case '/products':
-          return <Products />;
-        case '/categories':
-          return <Categories />;
-        default:
-          return <Dashboard />;
-      }
-    })();
-
-    return <Layout>{pageContent}</Layout>;
-  };
-
-  return renderPage();
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router;
+  }
 }
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Router />
+      <RouterProvider router={router} />
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

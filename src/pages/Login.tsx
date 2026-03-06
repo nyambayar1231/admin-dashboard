@@ -2,7 +2,13 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { LayoutDashboard, Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react';
+import {
+  LayoutDashboard,
+  Eye,
+  EyeOff,
+  AlertCircle,
+  CheckCircle,
+} from 'lucide-react';
 import { useLogin } from '@/hooks/useAuth';
 
 type LoginFormData = {
@@ -23,7 +29,7 @@ export function Login() {
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [showPassword, setShowPassword] = useState(false);
-  
+
   const loginMutation = useLogin();
   const isLoading = loginMutation.isPending;
 
@@ -41,30 +47,32 @@ export function Login() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    
+
     // Талбар бөглөх үед алдаа цэвэрлэх
     if (errors[name as keyof FormErrors]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
-    
+
     const newErrors: FormErrors = {};
 
     // Хэрэглэгчийн нэр шалгах
     if (!formData.username) {
       newErrors.username = 'Хэрэглэгчийн нэр оруулна уу';
     } else if (!validateUsername(formData.username)) {
-      newErrors.username = 'Хэрэглэгчийн нэр зөвхөн англи үсэг, тоо, -, _ ашиглана уу';
+      newErrors.username =
+        'Хэрэглэгчийн нэр зөвхөн англи үсэг, тоо, -, _ ашиглана уу';
     }
 
     // Нууц үг шалгах
     if (!formData.password) {
       newErrors.password = 'Нууц үг оруулна уу';
     } else if (!validatePassword(formData.password)) {
-      newErrors.password = 'Нууц үг зөвхөн англи үсэг ашиглаж, 8-аас олон тэмдэгт байх ёстой';
+      newErrors.password =
+        'Нууц үг зөвхөн англи үсэг ашиглаж, 8-аас олон тэмдэгт байх ёстой';
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -126,8 +134,8 @@ export function Login() {
                     errors.username
                       ? 'border-red-500 focus-visible:ring-red-500'
                       : getUsernameValidationStatus() === 'valid'
-                      ? 'border-green-500 focus-visible:ring-green-500'
-                      : ''
+                        ? 'border-green-500 focus-visible:ring-green-500'
+                        : ''
                   }`}
                   autoComplete="username"
                 />
@@ -142,7 +150,8 @@ export function Login() {
                 </div>
               )}
               <p className="text-xs text-gray-500">
-                3-30 тэмдэгт, зөвхөн англи үсэг, тоо, доогуур зураас (_) ашиглана уу
+                3-30 тэмдэгт, зөвхөн англи үсэг, тоо, доогуур зураас (_)
+                ашиглана уу
               </p>
             </div>
 
@@ -163,8 +172,8 @@ export function Login() {
                     errors.password
                       ? 'border-red-500 focus-visible:ring-red-500'
                       : getPasswordValidationStatus() === 'valid'
-                      ? 'border-green-500 focus-visible:ring-green-500'
-                      : ''
+                        ? 'border-green-500 focus-visible:ring-green-500'
+                        : ''
                   }`}
                   autoComplete="current-password"
                 />
@@ -214,16 +223,6 @@ export function Login() {
                 'Нэвтрэх'
               )}
             </Button>
-
-            {/* Буцах холбоос */}
-            <div className="text-center">
-              <a
-                href="#/"
-                className="text-sm text-gray-500 hover:text-indigo-600 transition-colors"
-              >
-                ← Нүүр хуудас руу буцах
-              </a>
-            </div>
           </form>
         </div>
 

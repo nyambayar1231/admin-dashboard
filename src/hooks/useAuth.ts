@@ -6,16 +6,26 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: authService.login,
-    onSuccess: (data) => {
-      // Store user info in localStorage (no token provided by backend)
-      localStorage.setItem('userId', data.userId);
-      localStorage.setItem('username', data.username);
-      
-      // Clear any stale queries
+    onSuccess: () => {
+      // Clear query cache and reload to trigger router loader
       queryClient.clear();
-      
-      // Redirect to dashboard
-      window.location.hash = '/dashboard';
+      window.location.href = '/dashboard';
+    },
+  });
+};
+
+export const useLogout = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: authService.logout,
+    onSuccess: () => {
+      queryClient.clear();
+      window.location.href = '/login';
+    },
+    onError: () => {
+      queryClient.clear();
+      window.location.href = '/login';
     },
   });
 };

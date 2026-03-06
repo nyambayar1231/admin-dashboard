@@ -6,6 +6,7 @@ import {
   TrendingUp,
   Plus,
 } from 'lucide-react';
+import { Link } from '@tanstack/react-router';
 import { useDashboardStats, useHealthCheck } from '@/hooks/useApi';
 import {
   Card,
@@ -166,7 +167,7 @@ export function Dashboard() {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 gap-4">
-              <a href="#/products">
+              <Link to="/dashboard/products">
                 <Button
                   variant="outline"
                   className="w-full h-auto py-6 flex flex-col items-center gap-2"
@@ -174,8 +175,8 @@ export function Dashboard() {
                   <Plus className="h-6 w-6" />
                   <span className="text-sm">Бүтээгдэхүүн нэмэх</span>
                 </Button>
-              </a>
-              <a href="#/categories">
+              </Link>
+              <Link to="/dashboard/categories">
                 <Button
                   variant="outline"
                   className="w-full h-auto py-6 flex flex-col items-center gap-2"
@@ -183,7 +184,7 @@ export function Dashboard() {
                   <FolderTree className="h-6 w-6" />
                   <span className="text-sm">Ангилал нэмэх</span>
                 </Button>
-              </a>
+              </Link>
             </div>
           </CardContent>
         </Card>
